@@ -1,0 +1,25 @@
+# yaml plugin metadata
+
+name: Nagios Downtime 
+version: 0.0.3
+rundeckPluginVersion: 1.0
+providers:
+    - name: Nagios Downtime
+      service: WorkflowNodeStep
+      plugin-type: script
+      script-file: nagios-downtime.sh
+      script-args: ${config.downtime_hours} ${node.name} ${config.enter_downtime}
+      description: Send a server into downtime
+      config:
+        - type: Select 
+          name: downtime_hours
+          title: Downtime time
+          description: Duration for server downtime (hours)
+          values: ["1", "2", "4", "6", "12", "24"]
+          default: "1"
+        - type: Boolean 
+          name: enter_downtime 
+          title: Is entering downtime
+          description: Checked if the server is going to enter downtime
+          required: true
+          default: true
